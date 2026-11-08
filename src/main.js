@@ -11,7 +11,30 @@ class FightScene extends Phaser.Scene{
   this.texturesHero();this.platforms=this.physics.add.staticGroup();
   const bg=this.add.graphics().setDepth(-10);bg.fillGradientStyle(0x101923,0x101923,0x1b2932,0x1b2932,1);bg.fillRect(0,0,2700,1000);
   for(let x=0;x<2700;x+=90){bg.lineStyle(1,0x45606a,.14);bg.lineBetween(x,0,x,1000);}
-  this.add.text(70,70,'SECTOR 07 / THE BROKEN OUTPOST',{fontFamily:'monospace',fontSize:'15px',color:'#7fa39d',letterSpacing:3});
+  // Modern megacity skyline: entirely drawn in Phaser, no remote image dependencies.
+  const city=this.add.graphics().setDepth(-8);
+  city.fillStyle(0x0b151d,.95);city.fillRect(0,690,2700,150);
+  for(let i=0;i<27;i++){
+   const x=i*105-20,w=66+(i%3)*15,h=190+(i*71)%300,top=790-h;
+   city.fillStyle(i%2?0x142630:0x192b35,.96);city.fillRect(x,top,w,h);
+   city.fillStyle(0x263e49,.8);city.fillRect(x,top,w,5);
+   city.lineStyle(1,0x4b7880,.45);city.strokeRect(x,top,w,h);
+   for(let wy=top+22;wy<760;wy+=25)for(let wx=x+10;wx<x+w-7;wx+=18){
+    const lit=((Math.floor(wx/18)+Math.floor(wy/25)+i)%4)!==0;
+    if(lit){city.fillStyle((i+Math.floor(wy/25))%3===0?0x64e6d2:0xe4b96f,.48);city.fillRect(wx,wy,7,11);}
+   }
+   if(i%4===0){city.fillStyle(0x163b45);city.fillRect(x+w/2-2,top-35,4,35);city.fillStyle(0x78f4df,.8);city.fillCircle(x+w/2,top-38,3);}
+   if(i%5===2){city.fillStyle(0x0b2029);city.fillRect(x+7,top+35,w-14,34);city.lineStyle(2,0x55dcca,.8);city.strokeRect(x+7,top+35,w-14,34);city.fillStyle(0x8ff7e2,.85);city.fillRect(x+13,top+47,w-26,3);}
+  }
+  // Elevated transit rails and distant traffic lights.
+  city.lineStyle(7,0x304b56,.9);city.lineBetween(0,620,2700,620);
+  city.lineStyle(2,0x7cebd8,.75);city.lineBetween(0,615,2700,615);
+  for(let x=120;x<2700;x+=330){city.fillStyle(0x263e48);city.fillRect(x,620,9,170);city.fillStyle(0x6debd7,.7);city.fillRect(x+3,620,3,170);}
+  city.fillStyle(0x101d24);city.fillRect(0,770,2700,70);
+  for(let x=0;x<2700;x+=180){city.fillStyle(0x6cebd7,.25);city.fillRect(x+22,805,72,3);city.fillStyle(0x3a5963,.5);city.fillRect(x+115,786,22,2);}
+  // Holographic street signs.
+  for(let i=0;i<8;i++){const x=180+i*330,y=460+(i%3)*48;city.fillStyle(0x0d242c,.88);city.fillRect(x,y,92,38);city.lineStyle(2,i%2?0xff765f:0x7df1dc,.85);city.strokeRect(x,y,92,38);city.fillStyle(i%2?0xff9a84:0x9dfff0,.9);city.fillRect(x+10,y+12,54,3);city.fillRect(x+10,y+21,34,2);}
+  this.add.text(70,70,'NEON DISTRICT  /  CITY SECTOR 07',{fontFamily:'monospace',fontSize:'15px',color:'#8df0dc',letterSpacing:3}).setDepth(1);
   const plats=[{x:1350,y:840,w:2700,h:100},{x:330,y:690,w:220,h:24},{x:660,y:570,w:220,h:24},{x:950,y:710,w:200,h:24},{x:1240,y:560,w:240,h:24},{x:1530,y:450,w:230,h:24},{x:1840,y:650,w:220,h:24},{x:2130,y:530,w:220,h:24},{x:2390,y:690,w:190,h:24},{x:520,y:430,w:150,h:20},{x:1700,y:300,w:180,h:20},{x:2250,y:350,w:160,h:20}];
   plats.forEach(p=>{let o=this.physics.add.staticImage(p.x,p.y,'platform').setDisplaySize(p.w,p.h).refreshBody().setTint(p.h>30?0x243a43:0x526b72);this.platforms.add(o);});
   this.physics.world.setBounds(0,0,2700,1000);
