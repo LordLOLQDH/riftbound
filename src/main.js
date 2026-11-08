@@ -12,7 +12,7 @@ const phaseLabel = document.querySelector('#phase-label');
 const objective = document.querySelector('#objective');
 const hint = document.querySelector('#game-hint');
 let game;
-let activeScene;
+let pendingSave = null;
 const touchKeys = new Set();
 
 function readSave() {
@@ -35,6 +35,7 @@ function startGame(save = null) {
   winScreen.classList.add('hidden');
   shell.classList.remove('hidden');
   if (!game) {
+    pendingSave = save;
     game = new Phaser.Game({
       type: Phaser.AUTO,
       parent: 'game-container',
@@ -47,9 +48,9 @@ function startGame(save = null) {
       scale: { mode: Phaser.Scale.RESIZE, autoCenter: Phaser.Scale.CENTER_BOTH, width: 1100, height: 650 },
       scene: [WorldScene]
     });
-    game.events.on('ready', () => {});
+  } else {
+    game.scene.start('WorldScene', { save });
   }
-  game.scene.start('WorldScene', { save });
 }
 function updateHud(data) {
   shardCount.textContent = `${data.shards} / 3`;
@@ -67,7 +68,8 @@ function completeGame() {
 class WorldScene extends Phaser.Scene {
   constructor() { super('WorldScene'); this.phase = 0; this.shards = 0; this.collected = new Set(); }
   init(data) {
-    const save = data?.save;
+    const save = data?.save ?? pendingSave;
+    pendingSave = null;
     this.phase = save?.phase === 1 ? 1 : 0;
     this.shards = Math.min(3, Math.max(0, Number(save?.shards) || 0));
     this.collected = new Set(Array.isArray(save?.collected) ? save.collected : []);
@@ -261,7 +263,6 @@ class WorldScene extends Phaser.Scene {
 
 document.querySelector('#start-button').addEventListener('click', () => startGame(null));
 document.querySelector('#continue-button').addEventListener('click', () => startGame(readSave()));
-document.querySelector('#save-button').addEventListener('click', () => activeScene?.autosave() || writeSave(readSave() || {}));
 document.querySelector('#exit-button').addEventListener('click', showMenu);
 document.querySelector('#replay-button').addEventListener('click', () => startGame(null));
 document.querySelectorAll('[data-dir]').forEach(button => {
