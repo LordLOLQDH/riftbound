@@ -1,66 +1,28 @@
 <!doctype html>
-<html lang="de">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#080d12" />
-    <meta name="description" content="RIFTBOUND — Explore the fracture between realities." />
-    <title>RIFTBOUND — First Contact</title>
-  </head>
-  <body>
-    <div id="app">
-      <div class="topbar">
-        <a class="brand" href="#" aria-label="RIFTBOUND Startseite"><span class="brand-mark">R</span><span>RIFTBOUND</span></a>
-        <div class="top-meta"><span class="live-dot"></span><span>FIRST CONTACT</span><span class="version">BUILD 0.1.0</span></div>
-      </div>
-      <main>
-        <section id="menu" class="menu-screen">
-          <div class="menu-copy">
-            <p class="eyebrow">A WORLD BETWEEN WORLDS</p>
-            <h1>THE WORLD<br/><em>IS NOT</em> WHAT IT WAS.</h1>
-            <p class="intro">Ein Experiment hat die Realität zerrissen. Wechsle zwischen zwei Zuständen der Welt, finde die Energiefragmente und öffne den Weg nach draußen.</p>
-            <div class="menu-actions">
-              <button id="start-button" class="primary-button">MISSION STARTEN <span>↗</span></button>
-              <button id="continue-button" class="secondary-button">SPIELSTAND LADEN</button>
-            </div>
-            <div class="controls-hint"><span>WASD / PFEILE</span> BEWEGEN <i></i><span>LEERTASTE</span> REALITÄT WECHSELN <i></i><span>E</span> INTERAGIEREN</div>
-          </div>
-          <div class="menu-art" aria-hidden="true">
-            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-            <div class="rift-core"><div class="rift-inner"></div><div class="rift-cut"></div></div>
-            <div class="art-label label-top">SECTOR 07 / UNKNOWN</div>
-            <div class="art-label label-bottom">REALITY INSTABILITY <strong>87.4%</strong></div>
-            <div class="art-cross cross-one">+</div><div class="art-cross cross-two">+</div>
-          </div>
-          <div class="menu-footer"><span>© RIFTBOUND PROJECT</span><span>AN EXPERIMENT IN TWO REALITIES</span><span>V 0.1.0</span></div>
-        </section>
-        <section id="game-shell" class="game-shell hidden">
-          <div class="game-head">
-            <div><p class="eyebrow">SECTOR 07 / THE OUTPOST</p><h2>FIRST CONTACT</h2></div>
-            <div class="game-stats"><div><span class="stat-label">ENERGIEFRAGMENTE</span><strong id="shard-count">0 / 3</strong></div><div><span class="stat-label">REALITÄT</span><strong id="phase-label">STABIL</strong></div></div>
-            <button id="save-button" class="save-button">SPEICHERN</button>
-          </div>
-          <div id="game-container" class="game-container">
-            <div id="game-hint" class="game-hint">Finde die drei Energiefragmente. Die Risse führen in eine andere Realität.</div>
-            <div class="game-vignette"></div>
-          </div>
-          <div class="game-bottom"><span id="objective">ZIEL: FINDE 3 ENERGIEFRAGMENTE</span><span id="backend-status">BACKEND WIRD GEPRÜFT …</span><button id="exit-button">ZURÜCK ZUM MENÜ ↗</button></div>
-          <div class="touch-controls">
-            <div class="touch-pad">
-              <button data-dir="up" aria-label="Nach oben">▲</button>
-              <div><button data-dir="left" aria-label="Nach links">◀</button><button data-dir="down" aria-label="Nach unten">▼</button><button data-dir="right" aria-label="Nach rechts">▶</button></div>
-            </div>
-            <div class="touch-actions"><button id="touch-phase">RIFT</button><button id="touch-interact">E</button></div>
-          </div>
-        </section>
-        <section id="win-screen" class="win-screen hidden">
-          <p class="eyebrow">SECTOR 07 / EXTRACTION COMPLETE</p>
-          <h2>YOU FOUND<br/><em>THE WAY OUT.</em></h2>
-          <p>Die drei Energiefragmente reagieren aufeinander. Der Riss öffnet sich. Doch dahinter wartet etwas, das nicht hier sein sollte.</p>
-          <button id="replay-button" class="primary-button">NOCH EINMAL SPIELEN ↗</button>
-        </section>
-      </main>
-    </div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
-</html>
+<html lang="de"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080d12"><meta name="description" content="RIFTBOUND - 2D Platform Fighter">
+<title>RIFTBOUND - Platform Fighter</title>
+</head><body><div id="app">
+<header class="topbar"><a class="brand" href="#"><span class="brand-mark">R</span><span>RIFTBOUND</span></a><div class="top-meta"><span class="live-dot"></span><span>PLATFORM FIGHTER</span><span class="version">BUILD 0.2.0</span></div></header>
+<main>
+<section id="menu" class="menu-screen">
+<div class="menu-copy"><p class="eyebrow">A WORLD BETWEEN WORLDS</p><h1>FIGHT YOUR<br><em>WAY THROUGH.</em></h1>
+<p class="intro">Springe über zerstörte Plattformen, weiche den Kreaturen aus und kämpfe dich bis zum Portal am Ende des Sektors.</p>
+<div class="menu-actions"><button id="start-button" class="primary-button">MISSION STARTEN <span>↗</span></button></div>
+<div class="controls-hint"><span>WASD / PFEILE</span> LAUFEN <i></i><span>LEERTASTE</span> SPRINGEN <i></i><span>J</span> ANGREIFEN</div></div>
+<div class="menu-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="rift-core"><div class="rift-inner"></div><div class="rift-cut"></div></div><div class="art-label label-top">SECTOR 07 / COMBAT ZONE</div><div class="art-label label-bottom">HOSTILE ACTIVITY <strong>DETECTED</strong></div></div>
+<div class="menu-footer"><span>© RIFTBOUND PROJECT</span><span>JUMP. FIGHT. SURVIVE.</span><span>V 0.2.0</span></div>
+</section>
+<section id="game-shell" class="game-shell hidden">
+<div class="game-head"><div><p class="eyebrow">SECTOR 07 / THE OUTPOST</p><h2>FIRST CONTACT</h2></div><div class="game-stats"><div><span class="stat-label">LEBEN</span><strong id="health-label">♥ ♥ ♥ ♥ ♥</strong></div><div><span class="stat-label">GEGNER</span><strong id="enemy-label">0 / 7</strong></div></div><button id="exit-button" class="save-button">MENÜ</button></div>
+<div id="game-container" class="game-container"><div id="game-hint" class="game-hint">Besiege alle Gegner und erreiche das Portal am Ende des Sektors.</div><div class="game-vignette"></div></div>
+<div class="game-bottom"><span id="objective">ZIEL: BESIEGE ALLE GEGNER</span><span>LINKS LAUFEN · RECHTS KÄMPFEN</span></div>
+<div class="touch-controls">
+<div class="stick-wrap"><span class="stick-label">LAUFEN</span><div id="move-stick" class="virtual-stick"><div id="move-knob" class="stick-knob"></div></div></div>
+<div class="touch-center"><button id="jump-button" class="jump-button">SPRINGEN</button></div>
+<div class="stick-wrap"><span class="stick-label">KÄMPFEN</span><div id="fight-stick" class="virtual-stick fight-stick"><div id="fight-knob" class="stick-knob"></div></div></div>
+</div>
+</section>
+<section id="win-screen" class="win-screen hidden"><p class="eyebrow">SECTOR 07 / CLEAR</p><h2>SECTOR<br><em>SECURED.</em></h2><p>Alle Gegner sind besiegt. Der Weg durch den Außenposten ist frei.</p><button id="replay-button" class="primary-button">NOCH EINMAL SPIELEN ↗</button></section>
+</main></div><script type="module" src="/src/main.js"></script></body></html>
