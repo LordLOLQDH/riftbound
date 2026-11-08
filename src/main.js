@@ -19,18 +19,16 @@ function readSave() {
   try { return JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); }
   catch { return null; }
 }
-function writeSave(data) {
-  localStorage.setItem(SAVE_KEY, JSON.stringify({ ...data, savedAt: new Date().toISOString() }));
-  hint.textContent = 'SPIELSTAND GESPEICHERT';
-  window.setTimeout(() => { hint.textContent = 'Finde die drei Energiefragmente. Die Risse führen in eine andere Realität.'; }, 1800);
-}
 function showMenu() {
+  continueButton.disabled = !readSave();
   shell.classList.add('hidden');
   winScreen.classList.add('hidden');
   menu.classList.remove('hidden');
   if (game) game.scene.stop('WorldScene');
 }
 function startGame(save = null) {
+  if (!save) localStorage.removeItem(SAVE_KEY);
+  continueButton.disabled = !readSave();
   menu.classList.add('hidden');
   winScreen.classList.add('hidden');
   shell.classList.remove('hidden');
@@ -63,6 +61,7 @@ function completeGame() {
   shell.classList.add('hidden');
   winScreen.classList.remove('hidden');
   localStorage.removeItem(SAVE_KEY);
+  continueButton.disabled = true;
 }
 
 class WorldScene extends Phaser.Scene {
@@ -284,7 +283,7 @@ window.addEventListener('storage', () => { continueButton.disabled = !readSave()
   try {
     const { error } = await supabase.auth.getSession();
     if (error) throw error;
-    backendStatus.textContent = 'KDS AI / SUPABASE VERBUNDEN · CLOUD-SAVES AB 0.2';
+    backendStatus.textContent = 'SUPABASE CLIENT BEREIT · CLOUD-SAVES AB 0.2';
   } catch {
     backendStatus.textContent = 'OFFLINE-MODUS · LOKALER SPIELSTAND';
   }
